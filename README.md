@@ -3,9 +3,18 @@
 # Welcome!
 
 ## 1. Introduction and installation
-STEM is a powerful tool for building single-cell level spatial transcriptomic landscapes using SC data with ST data. STEM extracts the spatial information from the gene expressions and eliminates the domain gap between spatial transcriptomics and single-cell RNA-seq data.
+STEM is a tool for building single-cell level spatial transcriptomic landscapes using SC data with ST data. STEM extracts the spatial information from the gene expressions and eliminates the domain gap between spatial transcriptomics and single-cell RNA-seq data.
 
-In this tutorial, we will demonstrate the workflow based on the mouse embryo data as part of our paper Figure 2. Since STEM is a light model, you can use the code from the `STEM` folder directly. We will release the PyPI package soon.
+### Installation
+```bash
+conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia ## more info: https://pytorch.org/get-started/locally/
+conda install -c conda-forge scanpy python-igraph leidenalg
+conda install seaborn
+```
+Since STEM is a light model, you can use the code from the `STEM` folder directly. You can also install STEM from PYPI:`pip install scSTEM`.
+To verify the installation, run `python test.py`
+
+Then we will demonstrate the workflow of generating the results shown in our figure 2. 
 ``` python
 %pylab inline
 import os
@@ -63,16 +72,16 @@ class setting( object ):
     pass
 seed_all(2022)
 opt= setting()
-setattr(opt, 'device', 'cuda:0')
-setattr(opt, 'outf', 'log/Mouse_E1z2')
-setattr(opt, 'n_genes', 351)
-setattr(opt, 'no_bn', False)
-setattr(opt, 'lr', 0.002)
-setattr(opt, 'sigma', 3)
-setattr(opt, 'alpha', 0.8)
-setattr(opt, 'verbose', True)
-setattr(opt, 'mmdbatch', 1000)
-setattr(opt, 'dp', dp)
+setattr(opt, 'device', 'cuda:0') # device
+setattr(opt, 'outf', 'log/test') # folder to save log files
+setattr(opt, 'n_genes', 351) # number of genes for the input
+setattr(opt, 'no_bn', False) # duplicated
+setattr(opt, 'lr', 0.002) # learning rate
+setattr(opt, 'sigma', 3)  # the spatial variance parameter in the Gaussian function
+setattr(opt, 'alpha', 0.8) # MMD loss weight default:0.8
+setattr(opt, 'verbose', True) # verbose
+setattr(opt, 'mmdbatch', 1000) # batch for MMD loss
+setattr(opt, 'dp', dp) # dropout rate for ST data
 
 testmodel = SOmodel(opt)
 testmodel.togpu()
