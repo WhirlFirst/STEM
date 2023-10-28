@@ -108,3 +108,8 @@ adata.obsm['spatialDA'] = all_coord(pd.DataFrame(netsc2st,index=adata.obs_names,
 ```
 Compared with other methods, STEM is the only method that preserves the original topology structure of all single cells.
 ![loss](./img/e1z2.png)
+
+More demos can be found in the `Demo` folder. Codes for repruducing the results are in the `SourceforFigure` folder.
+
+# Data
+The processed data and trained models used for reproducing the results are deposited in [Figshare](https://doi.org/10.6084/m9.figshare.24452812).
